@@ -13,11 +13,15 @@ namespace HairSalon.Controllers
             return View(allStylist);
         }
 
-        [HttpGet("/stylists/{id}")]
-        public ActionResult Show(int id)
+        [HttpGet("/stylists/{stylistId}")]
+        public ActionResult Show(int stylistId)
         {
-            List<Stylist> foundStylist = Stylist.Find(id);
-            return View(foundStylist);
+            Dictionary<string, object> myDic = new Dictionary<string, object> ();
+            List<Stylist> foundStylist = Stylist.Find(stylistId);
+            List<Client> stylistClients = Client.GetAllClientsByStylistId(stylistId);
+            myDic.Add("stylist", foundStylist);
+            myDic.Add("clients", stylistClients);
+            return View(myDic);
         }
 
         [HttpGet("/stylists/new")]
@@ -40,8 +44,12 @@ namespace HairSalon.Controllers
         {
             Client newClient = new Client(ClientName, stylistId);
             newClient.Save();
+            Dictionary<string, object> myDic = new Dictionary<string, object> ();
             List<Stylist> foundStylist = Stylist.Find(stylistId);
-            return View("Show", foundStylist);
+            List<Client> stylistClients = Client.GetAllClientsByStylistId(stylistId);
+            myDic.Add("stylist", foundStylist);
+            myDic.Add("clients", stylistClients);
+            return View("Show", myDic);
         }
     }
 }
