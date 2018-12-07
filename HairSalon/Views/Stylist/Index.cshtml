@@ -1,0 +1,8 @@
+<h1>Here's a complete list of stylists in our salon</h1>
+
+@foreach (var stylist in Model)
+{
+    <li><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></li>
+}
+<hr>
+<a href="/stylists/new">Add a new Stylist</a>
