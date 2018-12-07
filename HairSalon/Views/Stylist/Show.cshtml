@@ -1,4 +1,13 @@
 <h1>Complete information for Stylist @Model[0].GetName()</h1>
+<hr>
 
 <p>name:  @Model[0].GetName() </p>
 <p>ID:  @Model[0].GetId() </p>
+<hr>
+
+<p>Add a new client:</p>
+<form action='/stylists/@Model[0].GetId()/clients/new' method='post'>
+  <label for='Name'>Client name: </label>
+  <input id='ClientName' name='ClientName' type='text'>
+  <button type='submit'>Add client</button>
+</form>
