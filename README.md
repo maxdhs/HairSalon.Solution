@@ -1,4 +1,4 @@
-# _Word Counter_
+# _Hair Salon_
 
 http://maxdhs.github.io/HairSalon.Solution
 
