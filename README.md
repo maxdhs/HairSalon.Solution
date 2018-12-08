@@ -1,6 +1,6 @@
 # _Hair Salon_
 
-http://maxdhs.github.io/HairSalon.Solution
+https://github.com/maxdhs/HairSalon.Solution
 
 #### A web app for a hair salon stylist and client organizer.
 
