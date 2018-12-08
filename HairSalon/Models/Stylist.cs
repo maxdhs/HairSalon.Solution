@@ -17,6 +17,11 @@ namespace HairSalon.Models
             _id = id;
         }
 
+        public void SetId(int id)
+        {
+          _id = id;  
+        }
+
         public int GetId()
         {
             return _id;
@@ -35,6 +40,7 @@ namespace HairSalon.Models
             cmd.CommandText = @"INSERT INTO stylists (name) VALUES (@StylistName);";
             cmd.Parameters.AddWithValue("@StylistName" , this._name);
             cmd.ExecuteNonQuery();
+            _id = (int)cmd.LastInsertedId;
             conn.Close();
             if (conn != null)
             {
@@ -55,6 +61,7 @@ namespace HairSalon.Models
                 int id = rdr.GetInt32(0);
                 string name = rdr.GetString(1);
                 Stylist newStylist = new Stylist(name, id);
+                newStylist.SetId(id);
                 allStylists.Add(newStylist);
                 
             }
@@ -117,6 +124,11 @@ namespace HairSalon.Models
             return (idEquality && nameEquality);
         }
         }
+
+        public override int GetHashCode()
+        {
+            return this.GetName().GetHashCode();
+        }    
 
     }
 }

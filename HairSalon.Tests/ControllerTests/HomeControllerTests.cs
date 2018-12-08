@@ -9,7 +9,7 @@ namespace HairSalon.Tests
     [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
+      [TestMethod]
       public void Index_ReturnsCorrectView_True()
       {
         //Arrange

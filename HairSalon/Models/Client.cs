@@ -18,6 +18,10 @@ namespace HairSalon.Models
             _id = id;
         }
 
+        public void SetId(int id)
+        {
+          _id = id;  
+        }
         public int GetId()
         {
             return _id;
@@ -42,6 +46,7 @@ namespace HairSalon.Models
             cmd.Parameters.AddWithValue("@ClientName" , this._name);
             cmd.Parameters.AddWithValue("@StylistId" , this._stylistId);
             cmd.ExecuteNonQuery();
+            _id = (int)cmd.LastInsertedId;
             conn.Close();
             if (conn != null)
             {
@@ -62,7 +67,8 @@ namespace HairSalon.Models
                 int id = rdr.GetInt32(0);
                 string name = rdr.GetString(1);
                 int stylistId = rdr.GetInt32(2);
-                Client newClient = new Client(name, stylistId, id);
+                Client newClient = new Client(name, stylistId);
+                newClient.SetId(id);
                 allClients.Add(newClient);
             }
             conn.Close();
@@ -111,20 +117,26 @@ namespace HairSalon.Models
         }
         }
 
-        public override bool Equals(System.Object otherClient)
+       public override bool Equals(System.Object otherClient)
         {
-        if (!(otherClient is Client))
+            if (!(otherClient is Client))
+            {
+                return false;
+            }
+            else
+            {
+                Client newClient = (Client)otherClient;
+                bool idEquality = this.GetId() == newClient.GetId();
+                bool nameEquality = this.GetName() == newClient.GetName();
+                bool stylistEquality = this.GetStylistId() == newClient.GetStylistId();
+                return (idEquality && nameEquality && stylistEquality);
+            }
+        }
+
+        public override int GetHashCode()
         {
-            return false;
-        }
-        else
-        {
-            Client newClient = (Client) otherClient;
-            bool idEquality = (this.GetId() == newClient.GetId());
-            bool descriptionEquality = (this.GetName() == newClient.GetName());
-            return (idEquality && descriptionEquality);
-        }
-        }
+            return this.GetName().GetHashCode();
+        }    
 
     }
 }
