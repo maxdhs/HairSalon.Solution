@@ -11,17 +11,11 @@ namespace HairSalon.Models
         private string _name;
         private int _stylistId;
 
-        public Client(int id, string name, int stylistId)
+        public Client(string name, int stylistId, int id = 0)
         {
+            _name = name;
+            _stylistId = stylistId;
             _id = id;
-            _name = name;
-            _stylistId = stylistId;
-        }
-
-        public Client(string name, int stylistId)
-        {
-            _name = name;
-            _stylistId = stylistId;
         }
 
         public int GetId()
@@ -68,7 +62,7 @@ namespace HairSalon.Models
                 int id = rdr.GetInt32(0);
                 string name = rdr.GetString(1);
                 int stylistId = rdr.GetInt32(2);
-                Client newClient = new Client(id, name, stylistId);
+                Client newClient = new Client(name, stylistId, id);
                 allClients.Add(newClient);
             }
             conn.Close();
@@ -92,7 +86,7 @@ namespace HairSalon.Models
                 int id = rdr.GetInt32(0);
                 string name = rdr.GetString(1);
                 int stylistId = rdr.GetInt32(2);
-                Client newClient = new Client(id, name, stylistId);
+                Client newClient = new Client(name, stylistId, id);
                 allClients.Add(newClient);
             }
             conn.Close();
@@ -101,6 +95,35 @@ namespace HairSalon.Models
                 conn.Dispose();
             }
             return allClients;
+        }
+
+        public static void ClearAll()
+        {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM clients;";
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+        conn.Dispose();
+        }
+        }
+
+        public override bool Equals(System.Object otherClient)
+        {
+        if (!(otherClient is Client))
+        {
+            return false;
+        }
+        else
+        {
+            Client newClient = (Client) otherClient;
+            bool idEquality = (this.GetId() == newClient.GetId());
+            bool descriptionEquality = (this.GetName() == newClient.GetName());
+            return (idEquality && descriptionEquality);
+        }
         }
 
     }

@@ -7,18 +7,14 @@ namespace HairSalon.Models
 {
     public class Stylist
     {
-        private int _id;
         private string _name;
+        private int _id;
+       
 
-        public Stylist(int id, string name)
+        public Stylist(string name, int id = 0)
         {
+            _name = name;
             _id = id;
-            _name = name;
-        }
-
-        public Stylist(string name)
-        {
-            _name = name;
         }
 
         public int GetId()
@@ -58,7 +54,7 @@ namespace HairSalon.Models
             {
                 int id = rdr.GetInt32(0);
                 string name = rdr.GetString(1);
-                Stylist newStylist = new Stylist(id, name);
+                Stylist newStylist = new Stylist(name, id);
                 allStylists.Add(newStylist);
                 
             }
@@ -82,7 +78,7 @@ namespace HairSalon.Models
             {
                 int id = rdr.GetInt32(0);
                 string name = rdr.GetString(1);
-                Stylist newStylist = new Stylist(id, name);
+                Stylist newStylist = new Stylist(name, id);
                 allStylists.Add(newStylist);
                 
             }
@@ -92,6 +88,34 @@ namespace HairSalon.Models
                 conn.Dispose();
             }
             return allStylists;
+        }
+         public static void ClearAll()
+        {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM stylists;";
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        if (conn != null)
+        {
+        conn.Dispose();
+        }
+        }
+
+        public override bool Equals(System.Object otherStylist)
+        {
+        if (!(otherStylist is Stylist))
+        {
+            return false;
+        }
+        else
+        {
+            Stylist newStylist = (Stylist) otherStylist;
+            bool idEquality = this.GetId().Equals(newStylist.GetId());
+            bool nameEquality = this.GetName().Equals(newStylist.GetName());
+            return (idEquality && nameEquality);
+        }
         }
 
     }
