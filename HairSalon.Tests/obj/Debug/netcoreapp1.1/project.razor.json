@@ -1,14 +1,6 @@
 {
-  "ProjectFilePath": "c:\\Users\\Kingslayer\\Desktop\\HairSalon.Solution\\HairSalon.Tests\\HairSalon.Tests.csproj",
+  "ProjectFilePath": "/Users/Guest/Desktop/HairSalon.Solution/HairSalon.Tests/HairSalon.Tests.csproj",
   "TargetFramework": "netcoreapp1.1",
   "TagHelpers": [],
-  "Configuration": {
-    "ConfigurationName": "UnsupportedRazor",
-    "LanguageVersion": "1.0",
-    "Extensions": [
-      {
-        "ExtensionName": "UnsupportedRazorExtension"
-      }
-    ]
-  }
+  "Configuration": null
 }
