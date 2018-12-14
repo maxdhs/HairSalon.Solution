@@ -5,6 +5,10 @@
 <p>ID:  @Model["stylist"][0].GetId() </p>
 <hr>
 
+<a href="/stylists/@Model["stylist"][0].GetId()/delete/">Delete this stylist</a>
+
+
+
 <p>Clients</p>
 @foreach (var client in Model["clients"])
 {

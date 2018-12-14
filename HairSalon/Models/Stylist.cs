@@ -96,7 +96,7 @@ namespace HairSalon.Models
             }
             return allStylists;
         }
-        
+
          public static void ClearAll()
         {
         MySqlConnection conn = DB.Connection();
@@ -129,6 +129,25 @@ namespace HairSalon.Models
         public override int GetHashCode()
         {
             return this.GetName().GetHashCode();
+        }
+
+        public void DeleteStylist()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM stylists WHERE (id) = (@id);";
+
+            MySqlParameter id = new MySqlParameter();
+            id.ParameterName = "@id";
+            id.Value = this.GetId();
+            cmd.Parameters.Add(id);
+
+            cmd.ExecuteNonQuery();
+            if (conn != null)
+            {
+                conn.Close();
+            }
         }    
 
     }
