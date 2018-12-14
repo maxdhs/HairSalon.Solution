@@ -96,6 +96,7 @@ namespace HairSalon.Models
             }
             return allStylists;
         }
+        
          public static void ClearAll()
         {
         MySqlConnection conn = DB.Connection();

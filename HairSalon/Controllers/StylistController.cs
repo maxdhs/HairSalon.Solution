@@ -51,5 +51,22 @@ namespace HairSalon.Controllers
             myDic.Add("clients", stylistClients);
             return View("Show", myDic);
         }
+
+        [HttpGet("/stylists/delete/all")]
+        public ActionResult DeleteAll()
+        {
+            Stylist.ClearAll();
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+
+
+
     }
 }
