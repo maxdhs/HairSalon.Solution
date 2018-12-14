@@ -1,0 +1,10 @@
+<h1>Here's a complete list of clients in our salon</h1>
+
+<hr>
+
+@foreach (var client in Model)
+{
+    <li><a href="/clients/@client.GetId()">@client.GetName()</a></li>
+}
+
+<hr>

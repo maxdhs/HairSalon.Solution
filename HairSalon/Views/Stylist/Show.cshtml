@@ -22,3 +22,12 @@
   <input id='ClientName' name='ClientName' type='text'>
   <button type='submit'>Add client</button>
 </form>
+
+<hr>
+
+<p>Edit the name of this stylists:</p>
+<form action='/stylists/@Model["stylist"][0].GetId()/edit' method='post'>
+  <label for='Name'>New Stylist name: </label>
+  <input id='newName' name='newName' type='text'>
+  <button type='submit'>Change Name</button>
+</form>

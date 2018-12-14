@@ -1,0 +1,11 @@
+<h1>Details for client: @Model.GetName()</h1>
+
+<li>name: @Model.GetName()</li>
+<li>id: @Model.GetId()</li>
+
+<p>Edit the name of this client:</p>
+<form action='/clients/@Model.GetId()/edit' method='post'>
+  <label for='Name'>New Client name: </label>
+  <input id='newName' name='newName' type='text'>
+  <button type='submit'>Change Name</button>
+</form>

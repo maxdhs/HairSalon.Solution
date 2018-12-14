@@ -67,7 +67,18 @@ namespace HairSalon.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [HttpPost("/stylists/{id}/edit")]
+        public ActionResult EditName(int id, string newName)
+        {
+            List<Stylist> foundStylistList = Stylist.Find(id);
+            foundStylistList[0].EditName(newName);
+            Dictionary<string, object> myDic = new Dictionary<string, object> ();
+            List<Stylist> foundStylist = Stylist.Find(id);
+            List<Client> stylistClients = Client.GetAllClientsByStylistId(id);
+            myDic.Add("stylist", foundStylist);
+            myDic.Add("clients", stylistClients);
+            return View("Show", myDic);
+        }
 
 
 
