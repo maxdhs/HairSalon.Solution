@@ -19,8 +19,12 @@ namespace HairSalon.Controllers
             Dictionary<string, object> myDic = new Dictionary<string, object> ();
             List<Stylist> foundStylist = Stylist.Find(stylistId);
             List<Client> stylistClients = Client.GetAllClientsByStylistId(stylistId);
+            List<Specialty> specialties = foundStylist[0].GetSpecialties();
+            List<Specialty> allSpecialties = Specialty.GetAll();
             myDic.Add("stylist", foundStylist);
             myDic.Add("clients", stylistClients);
+            myDic.Add("specialties", specialties);
+            myDic.Add("allspecialties", allSpecialties);
             return View(myDic);
         }
 
@@ -44,11 +48,18 @@ namespace HairSalon.Controllers
         {
             Client newClient = new Client(ClientName, stylistId);
             newClient.Save();
+
             Dictionary<string, object> myDic = new Dictionary<string, object> ();
             List<Stylist> foundStylist = Stylist.Find(stylistId);
             List<Client> stylistClients = Client.GetAllClientsByStylistId(stylistId);
+            List<Specialty> specialties = foundStylist[0].GetSpecialties();
+            List<Specialty> allspecialties = Specialty.GetAll();
+
             myDic.Add("stylist", foundStylist);
             myDic.Add("clients", stylistClients);
+            myDic.Add("specialties", specialties);
+            myDic.Add("allspecialties", allspecialties);
+
             return View("Show", myDic);
         }
 
@@ -75,16 +86,33 @@ namespace HairSalon.Controllers
             Dictionary<string, object> myDic = new Dictionary<string, object> ();
             List<Stylist> foundStylist = Stylist.Find(id);
             List<Client> stylistClients = Client.GetAllClientsByStylistId(id);
+            List<Specialty> specialties = foundStylist[0].GetSpecialties();
+            List<Specialty> allSpecialties = Specialty.GetAll();
             myDic.Add("stylist", foundStylist);
             myDic.Add("clients", stylistClients);
+            myDic.Add("specialties", specialties);
+            myDic.Add("allspecialties", allSpecialties);
             return View("Show", myDic);
         }
 
 
+        [HttpPost("/stylists/{id}/specialty/new")]
+        public ActionResult AddSpecialty(int id, int specialtyId)
+        {
+            List<Stylist> foundStylist = Stylist.Find(id);
+            Specialty foundSpecialty = Specialty.Find(specialtyId);
+            foundStylist[0].AddSpecialty(foundSpecialty);
 
-
-
-
+            Dictionary<string, object> myDic = new Dictionary<string, object> ();
+            List<Client> stylistClients = Client.GetAllClientsByStylistId(id);
+            List<Specialty> specialties = foundStylist[0].GetSpecialties();
+            List<Specialty> allSpecialties = Specialty.GetAll();
+            myDic.Add("stylist", foundStylist);
+            myDic.Add("clients", stylistClients);
+            myDic.Add("specialties", specialties);
+            myDic.Add("allspecialties", allSpecialties);
+            return View("Show", myDic);
+        }
 
 
     }

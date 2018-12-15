@@ -9,6 +9,9 @@ namespace HairSalon.Controllers
         [HttpGet("/")]
         public ActionResult Index()
         {
+            List<Stylist> foundStylist = Stylist.Find(8);
+            Specialty foundSpecialty = Specialty.Find(3);
+            foundStylist[0].AddSpecialty(foundSpecialty);
             return View();
         }
     }

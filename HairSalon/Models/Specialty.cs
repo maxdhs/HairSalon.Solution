@@ -88,17 +88,17 @@ namespace HairSalon.Models
         }
         }
 
-       public override bool Equals(System.Object otherClient)
+       public override bool Equals(System.Object otherSpecialty)
         {
-            if (!(otherClient is Client))
+            if (!(otherSpecialty is Specialty))
             {
                 return false;
             }
             else
             {
-                Client newClient = (Client)otherClient;
-                bool idEquality = this.GetId() == newClient.GetId();
-                bool nameEquality = this.GetName() == newClient.GetName();
+                Specialty newSpecialty = (Specialty)otherSpecialty;
+                bool idEquality = this.GetId() == newSpecialty.GetId();
+                bool nameEquality = this.GetName() == newSpecialty.GetName();
                 return (idEquality && nameEquality);
             }
         }
@@ -108,38 +108,34 @@ namespace HairSalon.Models
             return this.GetName().GetHashCode();
         }    
 
-        public static Client Find(int id)
+        public static Specialty Find(int id)
          {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM clients WHERE id = (@searchId);";
+            cmd.CommandText = @"SELECT * FROM specialties WHERE id = (@searchId);";
             MySqlParameter searchId = new MySqlParameter();
             searchId.ParameterName = "@searchId";
             searchId.Value = id;
             cmd.Parameters.Add(searchId);
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
 
-            int ClientId = 0;
-            string ClientName = "";
-            int StylistId = 0;
+            int SpecialtyId = 0;
+            string SpecialtyName = "";
             
-
             while(rdr.Read())
             {
-                ClientId = rdr.GetInt32(0);
-                ClientName = rdr.GetString(1);
-                StylistId = rdr.GetInt32(2);
-                
+                SpecialtyId = rdr.GetInt32(0);
+                SpecialtyName = rdr.GetString(1);
             }
 
-            Client newClient = new Client(ClientName, StylistId, ClientId);
+            Specialty newSpecialty = new Specialty(SpecialtyName, SpecialtyId);
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
-            return newClient;
+            return newSpecialty;
         }
 
     }

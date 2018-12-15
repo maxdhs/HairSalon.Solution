@@ -25,6 +25,26 @@
 
 <hr>
 
+<p>Specialties</p>
+@foreach (var specialty in Model["specialties"])
+{
+    <li>@specialty.GetName()</li>
+}
+<hr>
+
+<p>Add a specialty to this stylist.</p>
+
+<form action="/stylists/@Model["stylist"][0].GetId()/specialty/new" method="post">
+    <select name="specialtyId" >
+            @foreach(var specialty in @Model["allspecialties"])
+            {
+                <option class="dropdown-item" value=@specialty.GetId()>@specialty.GetName()</option>
+            }
+    </select>
+     <button class="btn btn-primary btn-md" type="submit">Add</button>
+</form>
+
+
 <p>Edit the name of this stylists:</p>
 <form action='/stylists/@Model["stylist"][0].GetId()/edit' method='post'>
   <label for='Name'>New Stylist name: </label>
