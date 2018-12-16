@@ -117,5 +117,24 @@ namespace HairSalon.Tests
             Assert.AreEqual(testId, result);
         }
 
+        [TestMethod]
+        public void DeleteClient_DeletesClient_Void()
+        {
+          Client newClient = new Client("max", 1);
+          newClient.Save();
+          newClient.DeleteClient();
+          List<Client> emptyList = new List<Client> ();
+          Assert.AreEqual(emptyList.Count, Client.GetAll().Count);
+        }
+
+        [TestMethod]
+        public void EditName_EditsName_String()
+        {
+          Client newClient = new Client("Frank", 2);
+          newClient.Save();
+          newClient.EditName("Max");
+          Assert.AreEqual("Max", newClient.GetName());
+        }
+
   }
 }

@@ -8,7 +8,7 @@ https://github.com/maxdhs/HairSalon.Solution
 
 ## Description
 
-A c# web app which keeps track of stylists which work for a hair salon and all their individual clients.
+A c# web app which keeps track of stylists which work for a hair salon and all their individual clients and specialties.
 
 ### Specs
 | Spec | Input | Output |
@@ -25,6 +25,7 @@ In MySQL:
 * USE maxwell_dubin;
 * CREATE TABLE clients (id serial PRIMARY KEY, name VARCHAR(255), stylistId INT);
 * CREATE TABLE stylists (id serial PRIMARY KEY, name VARCHAR(255));
+* CREATE TABLE specialties (id serial PRIMARY KEY, name VARCHAR(255));
 * Clone this repository: $ git clone https://github.com/maxdhs/HairSalon.Solution
 * To run the program, first navigate to the location of the HairSalon.cs file then Dotnet run;
 * To run the tests, use these commands: $ cd HairSalon.Tests $ dotnet test

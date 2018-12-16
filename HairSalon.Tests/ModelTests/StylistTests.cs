@@ -19,6 +19,7 @@ namespace HairSalon.Tests
     {
       Stylist.ClearAll();
       Client.ClearAll();
+      Specialty.ClearAllStylists();
     }
 
      [TestMethod]
@@ -127,6 +128,36 @@ namespace HairSalon.Tests
 
             //Assert
             Assert.AreEqual(0, result);
+        }
+
+        [TestMethod]
+        public void DeleteStylist_DeletesAStylist_Void()
+        {
+          Stylist newStylist = new Stylist("max");
+          newStylist.Save();
+          newStylist.DeleteStylist();
+          List<Stylist> emptyList = new List<Stylist> ();
+          Assert.AreEqual(emptyList.Count, Stylist.GetAll().Count);
+        }
+
+        [TestMethod]
+        public void EditName_EditsName_String()
+        {
+          Stylist newStylist = new Stylist("Frank");
+          newStylist.Save();
+          newStylist.EditName("Max");
+          Assert.AreEqual("Max", newStylist.GetName());
+        }
+
+        [TestMethod]
+        public void AddSpecialty_AddsaSpecialtytoAStylist()
+        {
+          Stylist newStylist = new Stylist("Frank");
+          newStylist.Save();
+          Specialty newSpecialty = new Specialty("Military");
+          newSpecialty.Save();
+          newStylist.AddSpecialty(newSpecialty);
+          Assert.AreEqual(newSpecialty, newStylist.GetSpecialties()[0]);
         }
   }
 }
